@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Customer's Orders
+{% endblock page_title %}
+
+{% block content %}
+     
+    <div class="min-h-75vh">
+            
+        <h3 class="mt-10 mb-12 text-3xl text-center">Your customer's Orders</h3>
+        
+        
+    <div class="container mx-auto pb-10 ">
+        {% for product in user.products.all  %}
+            {% for order in product.orders.all %}
+                <div class="flex justify-center -mx-40 mb-10">
+                        {% include 'mixins/product_card.html' with product=order.product %}
+                        {% include 'mixins/user_card.html' with user=order.user %}    
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+        
+            
+    </div>
+{% endblock content %}

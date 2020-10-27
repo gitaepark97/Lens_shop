@@ -1,0 +1,22 @@
+{
+  "name": "lens_shop",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitaepark97/Lens_shop.git"
+  },
+  "description": "",
+  "scripts": {
+    "css": "gulp"
+  },
+  "homepage": "https://gitaepark97.github.io/Lens_shop",
+  "devDependencies": {
+    "autoprefixer": "^9.7.0",
+    "gulp": "^4.0.2",
+    "gulp-csso": "^3.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.2",
+    "node-sass": "^4.13.0",
+    "tailwindcss": "^1.8.13"
+  }
+}

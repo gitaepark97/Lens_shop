@@ -1,0 +1,23 @@
+<div class="w-1/6 px-2 mb-10 overflow-hidden">
+    <a href="{% url "users:profile" user.pk %}">
+        <div class="w-full h-48 bg-cover bg-center rounded-lg flex justify-center mt-10">
+            {% if user.avatar %}
+                <div class="{{h_and_w|default:'h-40 w-40'}} rounded-full bg-cover" style="background-image: url({{user.avatar.url}});">
+            {% else %}
+                <div class="{{h_and_w|default:'h-40 w-40'}} bg-gray-700 rounded-full text-white flex justify-center items-center overflow-hidden">
+                    <span class="{{text|default:'text-5xl'}}">{{user.name|first}}</span>
+            {% endif %}
+            </div>
+        </div>
+        <div class="flex justify-center mb-2 truncate font-medium">
+            <div class="w-4/5 overflow-hidden flex">
+                <span class="text-black w-11/12 block truncate">{{user.name}}</span>
+            </div>
+        </div>
+        <div class="flex justify-center mb-2 truncate mb-5">
+            <div class="w-4/5 overflow-hidden flex">
+                <span class="text-sm text-gray-600 block truncate">{{user.address}}</span>
+            </div>
+        </div>
+    </a>
+</div>

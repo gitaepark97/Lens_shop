@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    Search
+{% endblock page_title %}
+
+{% block search-bar %}
+{% endblock search-bar %}
+
+{% block content %}
+
+    <div class="container mx-auto pb-10">
+        
+        <div class="px-5">
+            <h2 class="text-2xl text-center mt-10">Search!</h2>
+
+            <form method="get" action="{% url "products:search" %}" class="w-1/2 mx-auto">
+                {{form.as_p}}
+                <button class="btn-link mt-5">Search</button>
+            </form>
+
+            <h3 class="mb-12 text-2xl text-center mt-10">Resault</h3>
+    
+            <div class="flex flex-wrap -mx-40 mb-10">
+                {% for product in products %}
+                    {% include 'mixins/product_card.html' with product=product %}   
+                {% endfor %}
+            </div>
+
+
+        <div class="flex items-center justify-center mx-auto container">
+
+            {% if products.has_previous %}
+                <a href="?page={{products.previous_page_number}}" class="text-teal-500"><i class="fas fa-arrow-left fa-lg text-blue-600"></i></a>
+            {% endif %}
+            <span class="mx-3 font-medium text-lg">{{products.number}} of {{products.paginator.num_pages}}</span>
+            {% if products.has_next %}
+                    <a href="?page={{products.next_page_number}}" class="text-teal-500"><i class="fas fa-arrow-right fa-lg text-blue-600"></i></a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock content %}

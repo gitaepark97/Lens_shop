@@ -1,0 +1,30 @@
+<div class="flex flex-row-reverse items-center w-3/4">
+    <ul class="flex items-center text-sm font-medium h-full">
+        <li class="nav_link"><a href="{% url 'core:home' %}">Products</a></li>
+        <li class="nav_link"><a href="{% url 'core:shops' %}">Shops</a></li>
+        {% if user.is_authenticated %}
+            <li class="nav_link"><a href="{% url 'core:recommends' %}">Recommends</a></li>
+            <li class="nav_link"><a href="{% url 'lists:see-favs' %}">Favs({{user.list.products.count}})</a></li>
+            <li class="nav_link"><a href="{{user.get_absolute_url}}">Profile</a></li>
+            {% if user.is_store %}
+                <li class="nav_link">
+                    <a href="{% url 'users:switch-hosting' %}">
+                    {% if request.session.is_hosting %}
+                        Stop Managing
+                    {% else %}
+                        Only Store
+                    {% endif %}
+                    </a>
+                </li>
+            {% endif %}
+                {% if request.session.is_hosting %}
+                    <li class="nav_link"><a href="{% url 'products:create' %}">Create Product</a></li>
+                    <li class="nav_link"><a href="{% url 'orders:see-orders' %}">Orders</a></li>
+                {% endif %}
+            <li class="nav_link"><a href="{% url "users:logout" %}">Log out</a></li>
+        {% else %}
+            <li class="nav_link"><a href="{% url "users:login" %}">Login</a></li>
+            <li class="nav_link"><a href="{% url "users:signup" %}" >Sign Up</a></li>
+        {% endif %}
+    </ul>
+</div>

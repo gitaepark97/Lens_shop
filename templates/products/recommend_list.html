@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_title %}
+    Home
+{% endblock page_title %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="container mx-auto pb-10">
+        
+            <div class="min-h-75vh">
+            
+                <h3 class="mb-12 text-2xl text-center mt-10">Recommand for {{user.name}}</h3>
+            
+            
+                <div class="container mx-auto pb-10 ">
+                    <div class="flex flex-wrap -mx-40 mb-10">
+                        {% for product in products %}
+                            {% include 'mixins/product_card.html' with product=product %} 
+                        {% endfor %}
+                    </div>
+                </div>
+                        
+                    
+            </div>
+
+            <div class="flex items-center justify-center mx-auto container">
+
+                {% if products.has_previous %}
+                    <a href="?page={{products.previous_page_number}}" class="text-teal-500"><i class="fas fa-arrow-left fa-lg text-blue-600"></i></a>
+                {% endif %}
+                <span class="mx-3 font-medium text-lg">{{products.number}} of {{products.paginator.num_pages}}</span>
+                {% if products.has_next %}
+                        <a href="?page={{products.next_page_number}}" class="text-teal-500"><i class="fas fa-arrow-right fa-lg text-blue-600"></i></a>
+                {% endif %}
+            </div>
+
+
+    {% else %}
+        <div class="container mx-auto pb-10">
+        
+            <div class="flex flex-wrap -mx-40 mb-10">
+                {% for product in products %}
+                    {% include 'mixins/product_card.html' with product=product %}   
+                {% endfor %}
+            </div>
+
+            <div class="flex items-center justify-center mx-auto container">
+        
+            {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" class="text-teal-500"><i class="fas fa-arrow-left fa-lg text-blue-600"></i></a>
+            {% endif %}
+        
+            <span class="mx-3 font-medium text-lg">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="text-teal-500"><i class="fas fa-arrow-right fa-lg text-blue-600"></i></a>
+            {% endif %}
+
+            </div>
+        
+        </div>
+    
+    {% endif %}
+
+{% endblock content %}

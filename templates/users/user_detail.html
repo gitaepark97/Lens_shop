@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    {{user_obj.name}}'s Profile
+{% endblock page_title %}
+
+
+{% block content %}
+    <div class="h-full">
+        <div class="container lg:w-5/12 md:w-1/2 xl:w-1/4 mx-auto my-10 flex flex-col items-center border p-6 border-gray-400">
+            
+            {% include "mixins/user_avatar.html" with user=user_obj %}
+
+            <div class="flex items-center">
+                <span class="text-3xl mt-1">{{user_obj.name}}</span>
+                    {% if user_obj.host %}
+                        <i class="fas fa-check-circle text-blue-400 ml-1"></i>
+                    {% endif %}
+            </div>
+
+            <span class="text-lg mt-5">{{user_obj.gender}}</span>
+            <span class="text-lg mt-5">{{user_obj.address}}</span>
+
+            {% if user == user_obj %}
+                <a href="{% url 'users:update' %}" class="btn-link mt-8">Edit Profile</a>
+            {% endif %}
+
+        </div>
+        {% if user_obj.products.count > 0 %}
+            <div class="container mx-auto flex flex-col items-center border-b">
+                <h3 class="mb-12 text-2xl">{{user_obj.name}}'s Products</h3>
+                <div class="flex flex-wrap w-full -mx-40 mb-10">
+                    {% for product in user_obj.products.all %}
+                        {% include 'mixins/product_card.html' with product=product %}   
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        <div class="container mx-auto flex flex-col items-center mt-10">
+            <h3 class="mb-12 text-2xl">{{user_obj.name}}'s Orders</h3>
+                <div class="flex flex-wrap w-full -mx-40 mb-10">
+                    {% for order in user_obj.orders.all %}
+                            {% include "mixins/product_card.html" with product=order.product %}
+                    {% endfor %}
+                </div>
+        </div>
+    </div>
+{% endblock content %}
